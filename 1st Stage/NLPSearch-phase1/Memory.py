@@ -8,11 +8,11 @@ class Memory:
 
         for topic in topics:
             print("=================" + topic + "================")
-            results = opensearch.search_body(topics[topic], numDocs=nTop)
-            #print(results[:nTop]["_id"])
+            results = opensearch.search_body(topics[topic], numDocs=nDocs)
+            print(results[:nTop]["_id"])
             title = topics[topic]
 
-            top = [results["_id"]]
+            top = [results[:nTop]["_id"]]
             print(title)
             self.memory[topic] = (title, top)
 
