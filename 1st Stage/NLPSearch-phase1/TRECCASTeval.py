@@ -43,7 +43,8 @@ class ConvSearchEvaluation:
         return rel_docs.count().rel
         
         
-    def eval(self, result, topic_turn_id):
+    def eval(self, result, topic_turn_id, verbose = False):
+
         total_retrieved_docs = result.count()._id
 
         # Try to get the relevance judgments from the TRAINING set
@@ -60,17 +61,17 @@ class ConvSearchEvaluation:
         total_relevant = relv_judg_list.count()
 
         # P@10
-        top10 = result['_id'][:10]
+        top10 = result['_source.doc'][:10]
         true_pos= np.intersect1d(top10,query_rel_docs)
         p10 = np.size(true_pos) / 10
         
-        true_pos= np.intersect1d(result['_id'],query_rel_docs)
+        true_pos= np.intersect1d(result['_source.doc'],query_rel_docs)
         recall = np.size(true_pos) / total_relevant
 
         # Compute vector of results with corresponding relevance level 
         relev_judg_results = np.zeros((total_retrieved_docs,1))
         for index, doc in rel_docs.iterrows():
-            relev_judg_results = relev_judg_results + ((result['_id'] == doc.docid)*doc.rel).to_numpy()
+            relev_judg_results = relev_judg_results + ((result['_source.doc'] == doc.docid)*doc.rel).to_numpy()
         
         # Normalized Discount Cummulative Gain
         p10 = metrics.precision_at_k(relev_judg_results[0], 10)
@@ -78,16 +79,18 @@ class ConvSearchEvaluation:
         ap = metrics.average_precision(relev_judg_results[0], total_relevant)
         mrr = metrics.mean_reciprocal_rank(relev_judg_results[0])
         
-        if False:
-            print("Prec@10: ", p10)
-            print("NDCG@5: ", ndcg5)
-            print("AP: ", ap)
-            print("MRR: ", mrr)
+        if verbose:
+            print("\tTotal rel: ", total_relevant)
+            print("\tTotal rel ret: ", np.size(true_pos))
+            print("\tPrec@10: ", p10)
+            print("\tNDCG@5: ", ndcg5)
+            print("\tAP: ", ap)
+            print("\tMRR: ", mrr)
         
         return [p10, recall, ap, ndcg5]
     
     
-    def evalPR(self, scores, topic_turn_id):
+    def evalPR(self, scores, topic_turn_id, verbose = False):
     
         aux = self.train_relevance_judgments.loc[self.train_relevance_judgments['topic_turn_id'] == (topic_turn_id)]
         
@@ -110,7 +113,7 @@ class ConvSearchEvaluation:
         recall_11point = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
         precision_11point = np.interp(recall_11point, recall, np.flip(precision_interpolated))
 
-        if False:
+        if verbose:
             print(total_relv_ret)
             print(rank_rel)
             print(recall)

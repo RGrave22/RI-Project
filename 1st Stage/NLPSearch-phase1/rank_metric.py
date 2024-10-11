@@ -7,7 +7,7 @@ http://www.stanford.edu/class/cs276/handouts/EvaluationNew-handout-6-per.pdf
 http://hal.archives-ouvertes.fr/docs/00/72/67/60/PDF/07-busa-fekete.pdf
 Learning to Rank for Information Retrieval (Tie-Yan Liu)
 """
-import numpy as np
+import numpy as np 
 
 
 def mean_reciprocal_rank(rs):

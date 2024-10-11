@@ -10,10 +10,12 @@ import rank_metric
 
 class OSsimpleAPI:
 
-    def __init__(self):
+    def __init__(self, verbose=False):
         host = 'api.novasearch.org'
         port = 443
 
+        #user = 'kwiz' # Add your user name here.
+        #password = 'natural+language_PROCESSING_&_SEARCH.2024' # Add your user password here. For testing only. Don't store credentials in code. 
         user = 'kwizard' # Add your user name here.
         password = 'oFVS/[6Q3b3>' # Add your user password here. For testing only. Don't store credentials in code. 
 
@@ -30,21 +32,21 @@ class OSsimpleAPI:
         )
 
         self.client.indices.open(self.index_name)
-        
         if self.client.indices.exists(self.index_name):
-            resp = self.client.indices.open(index = self.index_name)
-            print(resp)
+            if verbose:
+                resp = self.client.indices.open(index = self.index_name)
+                print(resp)
 
-            print('\n----------------------------------------------------------------------------------- INDEX SETTINGS')
-            settings = self.client.indices.get_settings(index = self.index_name)
-            pp.pprint(settings)
+                print('\n----------------------------------------------------------------------------------- INDEX SETTINGS')
+                settings = self.client.indices.get_settings(index = self.index_name)
+                pp.pprint(settings)
 
-            print('\n----------------------------------------------------------------------------------- INDEX MAPPINGS')
-            mappings = self.client.indices.get_mapping(index = self.index_name)
-            pp.pprint(mappings)
+                print('\n----------------------------------------------------------------------------------- INDEX MAPPINGS')
+                mappings = self.client.indices.get_mapping(index = self.index_name)
+                pp.pprint(mappings)
 
-            print('\n----------------------------------------------------------------------------------- INDEX #DOCs')
-            print(self.client.count(index = self.index_name))
+                print('\n----------------------------------------------------------------------------------- INDEX #DOCs')
+                print(self.client.count(index = self.index_name))
         else:
             print("Index does not exist.")
 
