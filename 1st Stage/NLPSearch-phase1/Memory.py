@@ -12,7 +12,8 @@ class Memory:
             print(results[:nTop]["_id"])
             title = topics[topic]
 
-            top = [results[:nTop]["_id"]]
+            top = results[:nTop]["_id"].tolist()
+            print('TOP -->' + str(top))
             print(title)
             self.memory[topic] = (title, top)
 
