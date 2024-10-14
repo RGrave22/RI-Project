@@ -65,7 +65,7 @@ class OSsimpleAPI:
         df = json_normalize(result["hits"]["hits"])
         return df
 
-    def termvectros_JSON(self, doc_id):
+    def termvectors_JSON(self, doc_id):
         term_statistics_json = self.client.termvectors(self.index_name, id=doc_id, fields='contents', field_statistics="true", term_statistics ='true')
         return term_statistics_json
 
