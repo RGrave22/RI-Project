@@ -14,26 +14,29 @@ class ReRank:
         queryTerms = opensearch.query_terms(analyzer="standard", query=topic).split()
         # print(queryTerms)
 
-        topDocs = res[:50]['_id'].tolist()
-        # topDocs = res['_id'].tolist()
+        # topDocs = res[:50]['_id'].tolist()
+        topDocs = res['_id'].tolist()
 
         col_doc_freq, col_sum_doc_freq, col_sum_ttf, col_docs_term_vectors = opensearch.multi_doc_term_vectors(
             doc_ids=topDocs)
 
         ranked_results = []
 
-        dm = sum(doc[terms][term][0] for term in col_docs_term_vectors)
 
         # print(
         #     f'================================== Doc_freq: {col_doc_freq} Sum_doc_freq: {col_sum_doc_freq} Sum_ttf: {col_sum_ttf}')
+
+        dm = 0
+        for doc, terms in col_docs_term_vectors.items():
+            d = sum(terms[term][0] for term in terms)
+            dm += d
 
         for doc, terms in col_docs_term_vectors.items():
             # print(doc)
             # print(terms)
 
-
             d = sum(terms[term][0] for term in terms)
-            miu = 0.1 * d
+            miu = 0.1 * dm/100
             # miu = 0.1 * (col_sum_ttf/d)
 
             res = 0
