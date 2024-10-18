@@ -13,9 +13,11 @@ class ReRank:
 
         queryTerms = opensearch.query_terms(analyzer="standard", query=topic).split()
 
-        # Limitar a 50 para não dar erro nos graficos
-        # topDocs = res[:50]['_id'].tolist()
-        topDocs = res['_id'].tolist()
+        # Limitar a 50 docs para não dar erro nos graficos
+        topDocs = res[:50]['_id'].tolist()
+
+        #Com os 100 docs da erro
+        #topDocs = res['_id'].tolist()
         print(topDocs)
         print(len(topDocs))
 
