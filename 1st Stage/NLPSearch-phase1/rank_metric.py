@@ -33,7 +33,7 @@ def mean_reciprocal_rank(rs):
     Returns:
         Mean reciprocal rank
     """
-    rs = (np.asarray(r).nonzero()[0] for r in rs)
+    rs = (np.atleast_1d(r).nonzero()[0] for r in rs)
     return np.mean([1. / (r[0] + 1) if r.size else 0. for r in rs])
 
 
@@ -159,7 +159,7 @@ def dcg_at_k(r, k, method=0):
     Returns:
         Discounted cumulative gain
     """
-    r = np.asfarray(r)[:k]
+    r = np.asarray(r)[:k]
     if r.size:
         if method == 0:
             return r[0] + np.sum(r[1:] / np.log2(np.arange(2, r.size + 1)))

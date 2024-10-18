@@ -1,36 +1,87 @@
+import math
+
+import pandas as pd
+
+
 class ReRank:
 
 
-    def reRank(self, topics, nDocs, opensearch):
+    def reRank(self, topic, opensearch):
+
+        res = opensearch.search_body(topic, numDocs=100)
+
+
+        queryTerms = opensearch.query_terms(analyzer="standard", query=topic).split()
+
+        # Limitar a 50 para não dar erro nos graficos
+        # topDocs = res[:50]['_id'].tolist()
+        topDocs = res['_id'].tolist()
+        print(topDocs)
+        print(len(topDocs))
+
+        col_doc_freq, col_sum_doc_freq, col_sum_ttf, col_docs_term_vectors = opensearch.multi_doc_term_vectors(
+            doc_ids=topDocs)
+
+        ranked_results = []
+
+
+        dm = 0
+        for doc, terms in col_docs_term_vectors.items():
+            d = sum(terms[term][0] for term in terms)
+            dm += d
+
+        for doc, terms in col_docs_term_vectors.items():
+
+            d = sum(terms[term][0] for term in terms)
+            miu = 0.1 * dm/100
+
+            res = 0
+            for term in queryTerms:
+
+                if term not in terms:
+
+                    for col_docs, col_terms in col_docs_term_vectors.items():
+                        if term in col_terms:
+
+                            ttf = col_terms[term][2]
+
+                            term_freq = 0
+                            prob = ttf / col_sum_ttf
+
+                            numerator = term_freq + miu * prob
+                            denominator = miu + d
+
+                            func = numerator / denominator
+
+                            res += math.log(func)
+
+                            break
 
 
 
-        for topic in topics:
+                else:
 
-            bm25rank = opensearch.search_body(topics[topic], numDocs=nDocs)['_id']
+                    term_freq = terms[term][0]
+                    prob = terms[term][2] / col_sum_ttf
 
-            for doc in bm25rank:
-                termVec = opensearch.termvectors_JSON(doc_id=doc)
-                print(termVec)
+                    numerator = term_freq + miu * prob
+                    denominator = miu + d
 
-                terms = termVec['term_vectors']['contents']['terms']
-                sum_ttf = termVec['term_vectors']['contents']['field_statistics']['sum_ttf']
-                print('=========== sum_ttf')
+                    func = numerator / denominator
 
-                d = sum(terms[term]['term_freq'] for term in terms)
-                print('=========== d1: ')
-                print(d)
+                    res += math.log(func)
 
-                miu = 0.1 * d
-                print('=========== miu com d3: ')
-                print(miu)
+            ranked_results.append({
+                '_id': doc,
+                '_score': res,
+                '_source.doc': doc
+            })
 
-                res = 1
-                for term in terms:
-                    term_freq = terms[term]['term_freq']
+        result_df = pd.DataFrame(ranked_results).sort_values(by='_score', ascending=False)
 
+        result_df.reset_index(drop=True, inplace=True)
 
+        return result_df
 
 
 
-        return 0

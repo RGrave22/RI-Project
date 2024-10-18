@@ -100,7 +100,7 @@ class OSsimpleAPI:
         return doc_freq, sum_doc_freq, sum_ttf, term_statistics
 
     def multi_doc_term_vectors(self, doc_ids):
-        term_statistics_json = self.client.mtermvectors(self.index_name, ids=doc_ids, fields='contents', field_statistics="true", term_statistics ='true')
+        term_statistics_json = self.client.mtermvectors(index=self.index_name, ids=doc_ids, fields='contents', field_statistics="true", term_statistics ='true')
         docs_term_vectors={}
 
         doc_freq = term_statistics_json["docs"][0]["term_vectors"]["contents"]["field_statistics"]["doc_count"]
