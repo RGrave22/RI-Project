@@ -10,7 +10,7 @@ class ConversationHistory:
         self.conv_topics = conv_topics
         self.selected_topics = selected_topics
 
-    def run_sliding_window(self):
+    def run_sliding_window(self,fig_subplot_size):
         fig = plt.figure(1, figsize= [12,9])
         fig.subplots_adjust(hspace = 0.4)
         fig.show()
@@ -81,9 +81,8 @@ class ConversationHistory:
             _full_mean_prec_rec.append(mean_prec_rec)
 
             recall_11point = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-            ax = fig.add_subplot(3,4,_conv_count+1)
+            ax = fig.add_subplot(fig_subplot_size[0],fig_subplot_size[1],_conv_count+1)
             ax.set_ylim([0.0,1.0])
-            title = self.conv_topics[conv_id-1]['title']
             if len(title) > 30:
                 ax.set_title("\n".join(wrap(title, 28)), fontsize=10)
             else:
@@ -126,8 +125,11 @@ class ConversationHistory:
         print('P10=', _p10, '  Recall=', _recall, '  NDCG@5=', _ndcg5, '  AP=', _ap)
         print()
 
+        fig.savefig('results/convHistory_sliding_window_pr_curves_per_conv.png', format='png', dpi=600, transparent=True)
+        fig_2.savefig('results/convHistory_sliding_window.png', format='png', dpi=600, transparent=True)
+
     
-    def run_first_utt_only(self):
+    def run_first_utt_only(self,fig_subplot_size):
         fig = plt.figure(1, figsize= [12,9])
         fig.subplots_adjust(hspace = 0.4)
         fig.show()
@@ -198,9 +200,8 @@ class ConversationHistory:
             _full_mean_prec_rec.append(mean_prec_rec)
 
             recall_11point = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-            ax = fig.add_subplot(3,4,_conv_count+1)
+            ax = fig.add_subplot(fig_subplot_size[0],fig_subplot_size[1],_conv_count+1)
             ax.set_ylim([0.0,1.0])
-            title = self.conv_topics[conv_id-1]['title']
             if len(title) > 30:
                 ax.set_title("\n".join(wrap(title, 28)), fontsize=10)
             else:
@@ -242,5 +243,8 @@ class ConversationHistory:
         print()
         print('P10=', _p10, '  Recall=', _recall, '  NDCG@5=', _ndcg5, '  AP=', _ap)
         print()
+
+        fig.savefig('results/convHistory_first_utt_pr_curves_per_conv.png', format='png',dpi=600, transparent=True)
+        fig_2.savefig('results/convHistory_first_utt_meanp10_and_overall_pr_curve.png', format='png', dpi=600, transparent=True)
 
     
