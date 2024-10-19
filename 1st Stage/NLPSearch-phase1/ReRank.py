@@ -8,7 +8,7 @@ class ReRank:
 
     def reRank(self, topic, opensearch):
 
-        res = opensearch.search_body(topic, numDocs=100)
+        res = opensearch.search_body(topic, numDocs=50)
 
 
         queryTerms = opensearch.query_terms(analyzer="standard", query=topic).split()
