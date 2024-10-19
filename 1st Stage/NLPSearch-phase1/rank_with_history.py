@@ -9,28 +9,21 @@ class rank_with_history:
         rr = ReRank.ReRank()   
         query = first_utterance + " " + turn['raw_utterance']
         
-        print("\nQUERY: " + query + "\n")
-
-    # def rankWithHistory(self, topic, turn, opensearch):
-
-    #     query = topic['title'] + " " + turn['raw_utterance']
-
-    #     res = opensearch.search_body(query, numDocs=100)
-
-    #     return res
-
-    def rankWithHistory(self, first_utterance, turn, opensearch):
-    
-        query = first_utterance + " " + turn['raw_utterance']
-
-        res = opensearch.search_body(query, numDocs=100)
-
-        return res
         #Normal BM25
         res = opensearch.search_body(query, numDocs=100)
 
         #LMD
         #res = rr.reRank(topic = query, opensearch = opensearch)
 
+        print("\nQUERY: " + query + "\n")
+
         return res
+
+    # def rankWithHistory_title(self, topic, turn, opensearch):
+
+    #     query = topic['title'] + " " + turn['raw_utterance']
+
+    #     res = opensearch.search_body(query, numDocs=100)
+
+    #     return res
 
