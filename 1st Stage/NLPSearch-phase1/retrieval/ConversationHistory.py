@@ -28,9 +28,10 @@ class ConversationHistory:
         _nturns = 0
         _conv_count = 0
 
-        convHistory = ConversationHistory_Retrieval(self.opensearch)
+        
 
         for topic in self.conv_topics:
+            convHistory = ConversationHistory_Retrieval(self.opensearch)
             conv_id = topic['number']
             title = topic['title']
 
