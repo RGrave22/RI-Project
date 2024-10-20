@@ -127,7 +127,7 @@ class ConversationHistory:
         print()
 
         fig.savefig('results/convHistory_sliding_window_pr_curves_per_conv.png', format='png', dpi=600, transparent=True)
-        fig_2.savefig('results/convHistory_sliding_window.png', format='png', dpi=600, transparent=True)
+        fig_2.savefig('results/convHistory_sliding_window.png', format='png', dpi=600, transparent=True, bbox_inches='tight')
 
     
     def run_first_utt_only(self,fig_subplot_size):
@@ -246,6 +246,6 @@ class ConversationHistory:
         print()
 
         fig.savefig('results/convHistory_first_utt_pr_curves_per_conv.png', format='png',dpi=600, transparent=True)
-        fig_2.savefig('results/convHistory_first_utt_meanp10_and_overall_pr_curve.png', format='png', dpi=600, transparent=True)
+        fig_2.savefig('results/convHistory_first_utt_meanp10_and_overall_pr_curve.png', format='png', dpi=600, transparent=True, bbox_inches='tight')
 
     

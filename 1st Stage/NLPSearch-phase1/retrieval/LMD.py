@@ -126,5 +126,5 @@ class LMD:
         print()
 
         fig.savefig('results/lmd_pr_curves_per_conv.png', format='png', dpi=600, transparent=True)
-        fig_2.savefig('results/lmd_meanp10_and_overall_pr_curve.png', format='png', dpi=600, transparent=True)
+        fig_2.savefig('results/lmd_meanp10_and_overall_pr_curve.png', format='png', dpi=600, transparent=True, bbox_inches='tight')
     
