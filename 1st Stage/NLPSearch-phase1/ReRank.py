@@ -6,15 +6,14 @@ import pandas as pd
 class ReRank:
 
 
-    def reRank(self, topic, opensearch):
+    def reRank(self, topic, opensearch, numDocs):
 
-        res = opensearch.search_body(topic, numDocs=50)
-
+        res = opensearch.search_body(topic, numDocs)
 
         queryTerms = opensearch.query_terms(analyzer="standard", query=topic).split()
 
         # Limitar a 50 docs para não dar erro nos graficos
-        topDocs = res[:50]['_id'].tolist()
+        topDocs = res[:numDocs]['_id'].tolist()
 
         #Com os 100 docs da erro
         #topDocs = res['_id'].tolist()
