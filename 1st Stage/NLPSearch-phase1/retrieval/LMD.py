@@ -48,7 +48,7 @@ class LMD:
                 utterance = turn['raw_utterance']
                 topic_turn_id = '%d_%d'% (conv_id, turn_id)
                 
-                result = lmd.retrieve_fun(self.opensearch,utterance)
+                result = lmd.retrieve_fun(self.opensearch, utterance)
 
                 num_rel = self.test_bed.num_rel(topic_turn_id)
 

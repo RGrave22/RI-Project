@@ -58,8 +58,6 @@ class ReRank:
 
                             break
 
-
-
                 else:
 
                     term_freq = terms[term][0]
