@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+plt.use('TkAgg')
 import numpy as np
 from retrieval_methods.BM25 import BM25_Retrieval
 from textwrap import wrap

@@ -1,12 +1,12 @@
 import pandas as pd
-import ReRank
+import ReRankLMD
 
 class rank_with_history:
 
 
     
     def rankWithHistory(self, first_utterance, turn, opensearch):
-        rr = ReRank.ReRank()   
+        rr = ReRankLMD.ReRank()   
         query = first_utterance + " " + turn['raw_utterance']
         
         #Normal BM25

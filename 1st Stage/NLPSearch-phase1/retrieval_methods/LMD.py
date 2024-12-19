@@ -1,4 +1,4 @@
-import ReRank as rr
+import ReRankLMD as rr
 
 rr = rr.ReRank()
 
