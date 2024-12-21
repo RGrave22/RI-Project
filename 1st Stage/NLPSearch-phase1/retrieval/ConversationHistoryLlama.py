@@ -4,6 +4,7 @@ import numpy as np
 #from retrieval_methods.ConversationHistory import ConversationHistory_Retrieval
 from retrieval_methods.ConversationHistoryWithLlama import ConversationHistoryWithLlama_Retrieval
 from textwrap import wrap
+from retrieval.Summarization import Summarization
 
 class ConversationHistoryLlama:
     def __init__(self,opensearch, test_bed, conv_topics, selected_topics):
@@ -52,6 +53,8 @@ class ConversationHistoryLlama:
                 topic_turn_id = '%d_%d'% (conv_id, turn_id)
                 
                 result = convHistoryLlama.sliding_window(utterance, turn)
+
+                Summarization.Summarize(self,result, 3)
 
                 num_rel = self.test_bed.num_rel(topic_turn_id)
 

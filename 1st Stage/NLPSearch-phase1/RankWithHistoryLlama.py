@@ -30,15 +30,12 @@ def generate_text_with_ollama(prompt):
 
 class rank_with_history:
 
-    
-
-
-    
     def rankWithHistoryLlama(self, first_utterance, turn, opensearch):
         rr = ReRankLMD.ReRank()   
         query = first_utterance + " " + turn['raw_utterance']
 
-        print("--------> QUERY: " + query)
+        print("========================================QUERY REWRITE==============================================")
+        print("QUERY BEFORE: " + query)
 
         #Prompt = "Rewrite the current utterance (the last question) using past utterances (the previous questions), YOUR answer should only be the rewritten query, nothing more. Query to be rewritten: "
 
@@ -53,9 +50,9 @@ class rank_with_history:
         response_text = generate_text_with_ollama(PROMPT)
 
         if response_text:
-            print()
+            print("=================================================QUERY AFTER==============================================")
             print(response_text)
-            print("-------------------")
+            print("==============================================================")
         else:
             print("Failed to retrieve a response.")
         
