@@ -49,16 +49,18 @@ class rank_with_history:
         response_text = generate_text_with_ollama(PROMPT)
 
         if response_text:
-            print("=================================================QUERY AFTER==============================================")
+            print("=================================================QUERY AFTER REWRITE==============================================")
+            print()
             print(response_text)
-            print("==============================================================")
+            print()
+            print("==========================================================================================================")
         else:
             print("Failed to retrieve a response.")
         
         #LMD
         res = rr.reRank(topic = response_text, opensearch = opensearch, numDocs=50)
 
-        print("\nQUERY: " + query + "\n")
+        #print("\nQUERY: " + query + "\n")
 
         return res
 

@@ -64,9 +64,11 @@ class Summarization:
         response_text = generate_text_with_ollama(PROMPT)
 
         if response_text:
-            print("===========================RESPONSE SUMARIZE=====================================================================")
+            print("===========================RESPONSE SUMARIZED=====================================================================")
+            print()
             print(response_text)
-            print("-------------------")
+            print()
+            print("==================================================================================================================")
         else:
             print("Failed to retrieve a response.")
 
