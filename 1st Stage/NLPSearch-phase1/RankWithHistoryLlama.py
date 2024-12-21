@@ -44,7 +44,6 @@ class rank_with_history:
         Prompt = "Rewrite this prompt in a precise and concise manner that contains all the essential information. Your answer should only be the rewritten query, nothing more. Prompt: "
 
 
-
         PROMPT = Prompt + query
 
         response_text = generate_text_with_ollama(PROMPT)

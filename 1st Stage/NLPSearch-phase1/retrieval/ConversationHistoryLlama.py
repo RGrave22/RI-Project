@@ -52,7 +52,10 @@ class ConversationHistoryLlama:
                 utterance = turn['raw_utterance']
                 topic_turn_id = '%d_%d'% (conv_id, turn_id)
                 
+
+                
                 result = convHistoryLlama.sliding_window(utterance, turn)
+                print(str(result))
 
                 Summarization.Summarize(self,result, 3)
 

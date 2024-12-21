@@ -55,7 +55,9 @@ class Summarization:
 
         #Prompt = "Summarize this documents and do not use more than 50 words (the docs are separated by [SEP]): "
 
-        Prompt = "Sumarize the following docs that are separated by [Sep] in no more than 50 words You answer should only be the summarization nothing more: "
+        #Prompt = "Sumarize the documens that are separated by [SEP] do not use more than 70 words. Your answer should only be the summarization nothing more: "
+
+        Prompt = "Sumarize the following docs that are separated by [Sep] in no more than 50 words Your answer should only be the summarization nothing more: "
 
         PROMPT = Prompt + toSummarize
 
