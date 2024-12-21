@@ -52,11 +52,9 @@ class ConversationHistoryLlama:
                 utterance = turn['raw_utterance']
                 topic_turn_id = '%d_%d'% (conv_id, turn_id)
                 
-
-                
                 result = convHistoryLlama.sliding_window(utterance, turn)
-                print(str(result))
 
+                # IF you want to summarize the top documents to retrieve a generated response uncomment
                 Summarization.Summarize(self,result, 3)
 
                 num_rel = self.test_bed.num_rel(topic_turn_id)
