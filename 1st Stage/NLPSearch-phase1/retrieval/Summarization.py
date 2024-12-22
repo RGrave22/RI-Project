@@ -34,7 +34,7 @@ def generate_text_with_ollama(prompt):
 class Summarization:
 
     def Summarize(self, topDocs, numDocs ):
-        print("========================================SUMARIZATION BEGIN=====================================")
+        print("========================================DOCS TO SUMARIZE==============================================")
 
         opensearch = osearch.OSsimpleAPI()
 
@@ -49,9 +49,9 @@ class Summarization:
 
         toSummarize = "[SEP]".join(aux)
         
-        print("====================================SUMMARIZATION==================================================")
+        #print("====================================SUMMARIZATION==================================================")
 
-        print("BEFORE: " + toSummarize)
+        #print("BEFORE: " + toSummarize)
 
         #Prompt = "Summarize this documents and do not use more than 50 words (the docs are separated by [SEP]): "
 

@@ -35,6 +35,7 @@ class rank_with_history:
         query = first_utterance + " " + turn['raw_utterance']
 
         print("========================================QUERY REWRITE==============================================")
+        print()
         print("QUERY BEFORE: " + query)
 
         #Prompt = "Rewrite the current utterance (the last question) using past utterances (the previous questions), YOUR answer should only be the rewritten query, nothing more. Query to be rewritten: "
@@ -53,7 +54,7 @@ class rank_with_history:
             print()
             print(response_text)
             print()
-            print("==========================================================================================================")
+            print("==================================================================================================================")
         else:
             print("Failed to retrieve a response.")
         
